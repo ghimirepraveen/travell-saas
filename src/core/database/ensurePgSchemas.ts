@@ -3,7 +3,16 @@ import { buildMasterPoolConfig, buildTenantPoolConfig } from './pgConnection.uti
 
 const MASTER_SCHEMAS = ['auth', 'subscription'] as const;
 
-const TENANT_SCHEMAS = ['auth', 'packages', 'inventory', 'customers', 'bookings'] as const;
+const TENANT_SCHEMAS = [
+  'auth',
+  'packages',
+  'inventory',
+  'customers',
+  'bookings',
+  'destinations',
+  'faq',
+  'enquiries',
+] as const;
 
 const createSchemas = async (pool: Pool, schemas: readonly string[]): Promise<void> => {
   for (const schema of schemas) {

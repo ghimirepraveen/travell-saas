@@ -4,9 +4,9 @@ import { tenantResolver } from "@/core/middleware/tenantResolver.middleware";
 import { zodValidationMiddleware } from "@/core/middleware/zodValidation.middleware";
 import {
   createDestination,
-  deleteDestination,
   getDestinationById,
   listDestinations,
+  listDestinationsForPublic,
   updateDestination,
 } from "../controllers/destination.controller";
 import {
@@ -24,6 +24,13 @@ router.get(
   tenantResolver,
   zodValidationMiddleware(destinationPaginationSchema, "query"),
   listDestinations,
+);
+router.get(
+  "/public",
+  authenticationMiddleware,
+  tenantResolver,
+  zodValidationMiddleware(destinationPaginationSchema, "query"),
+  listDestinationsForPublic,
 );
 
 router.get(
@@ -49,14 +56,6 @@ router.patch(
   zodValidationMiddleware(destinationIdParamSchema, "params"),
   zodValidationMiddleware(updateDestinationSchema),
   updateDestination,
-);
-
-router.delete(
-  "/:id",
-  authenticationMiddleware,
-  tenantResolver,
-  zodValidationMiddleware(destinationIdParamSchema, "params"),
-  deleteDestination,
 );
 
 export default router;

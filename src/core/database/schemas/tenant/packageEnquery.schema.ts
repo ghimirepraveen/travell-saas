@@ -1,12 +1,4 @@
-import {
-  pgSchema,
-  uuid,
-  varchar,
-  timestamp,
-  text,
-  integer,
-  numeric,
-} from "drizzle-orm/pg-core";
+import { pgSchema, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
 
 const enquiries = pgSchema("enquiries");
 

@@ -84,19 +84,3 @@ export const updateDestination = async (
     return destination ?? null;
   });
 };
-
-export const deleteDestination = async (
-  tenantId: string,
-  id: string,
-): Promise<boolean> => {
-  return withTenantDb(tenantId, async (db) => {
-    const [destination] = await db
-      .delete(destinationsTable)
-      .where(eq(destinationsTable.id, id))
-      .returning({
-        id: destinationsTable.id,
-      });
-
-    return Boolean(destination);
-  });
-};

@@ -10,6 +10,9 @@ import superadminRoutes from './modules/superadmin/routes/superadmin.routes';
 import authRoutes from './modules/auth/routes/auth.routes';
 import bookingRoutes from './modules/bookings/routes/booking.routes';
 import destinationRoutes from './modules/destination/routes/destination.routes';
+import faqRoutes from './modules/faq/routes/faq.routes';
+import packageRoutes from './modules/packages/routes/package.routes';
+import packageEnquiryRoutes from './modules/packageEnquery/routes/packageEnquery.routes';
 
 export const createApp = (): Application => {
   const app = express();
@@ -37,6 +40,9 @@ export const createApp = (): Application => {
   app.use(`${api}/auth`, authRoutes);
   app.use(`${api}/bookings`, bookingRoutes);
   app.use(`${api}/destinations`, destinationRoutes);
+  app.use(`${api}/faqs`, faqRoutes);
+  app.use(`${api}/packages`, packageRoutes);
+  app.use(`${api}/package-enquiries`, packageEnquiryRoutes);
 
   app.use(errorHandler);
 

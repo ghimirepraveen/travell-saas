@@ -26,11 +26,28 @@ export const listDestinations = async (
   query: DestinationPaginationInput,
 ): Promise<PaginatedResult<Destination>> => {
   const { page, limit, offset } = parsePagination(query);
-  const { items, total } = await destinationRepository.findDestinationsPaginated(
-    tenantId,
-    limit,
-    offset,
-  );
+  const { items, total } =
+    await destinationRepository.findDestinationsPaginated(
+      tenantId,
+      limit,
+      offset,
+    );
+
+  return buildPaginatedResult(items, total, page, limit);
+};
+
+export const listDestinationsForPublic = async (
+  tenantId: string,
+  query: DestinationPaginationInput,
+): Promise<PaginatedResult<Destination>> => {
+  query.isPublished = true;
+  const { page, limit, offset } = parsePagination(query);
+  const { items, total } =
+    await destinationRepository.findDestinationsPaginated(
+      tenantId,
+      limit,
+      offset,
+    );
 
   return buildPaginatedResult(items, total, page, limit);
 };
@@ -39,7 +56,10 @@ export const getDestinationById = async (
   tenantId: string,
   id: string,
 ): Promise<Destination> => {
-  const destination = await destinationRepository.findDestinationById(tenantId, id);
+  const destination = await destinationRepository.findDestinationById(
+    tenantId,
+    id,
+  );
 
   if (!destination) {
     throw new HttpException(
@@ -57,7 +77,11 @@ export const updateDestination = async (
   id: string,
   dto: UpdateDestinationInput,
 ): Promise<Destination> => {
-  const destination = await destinationRepository.updateDestination(tenantId, id, dto);
+  const destination = await destinationRepository.updateDestination(
+    tenantId,
+    id,
+    dto,
+  );
 
   if (!destination) {
     throw new HttpException(
@@ -68,21 +92,4 @@ export const updateDestination = async (
   }
 
   return destination;
-};
-
-export const deleteDestination = async (
-  tenantId: string,
-  id: string,
-): Promise<{ deleted: true }> => {
-  const deleted = await destinationRepository.deleteDestination(tenantId, id);
-
-  if (!deleted) {
-    throw new HttpException(
-      "Destination not found",
-      HttpStatus.NOT_FOUND,
-      ErrorCodes.DESTINATION_NOT_FOUND,
-    );
-  }
-
-  return { deleted: true };
 };

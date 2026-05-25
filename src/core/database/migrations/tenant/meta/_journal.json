@@ -22,6 +22,20 @@
       "when": 1779691999070,
       "tag": "0002_heavy_red_skull",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1779693122005,
+      "tag": "0003_motionless_paper_doll",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1779698903970,
+      "tag": "0004_hot_lady_vermin",
+      "breakpoints": true
     }
   ]
 }
