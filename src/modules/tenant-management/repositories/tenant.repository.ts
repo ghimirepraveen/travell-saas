@@ -40,7 +40,7 @@ export const createTenant = async (dto: CreateTenantInput): Promise<TenantRecord
       })
       .returning();
 
-    await migrateTenantDatabase(databaseName);
+    await migrateTenantDatabase(databaseName, tenantId);
     return mapTenant(createdTenant);
   } catch (error) {
     await masterDb.delete(tenants).where(eq(tenants.id, tenantId));

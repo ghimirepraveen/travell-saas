@@ -1,18 +1,19 @@
-import express, { Application } from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
-import { envConfig } from './core/config/env.config';
-import { errorHandler } from './core/middleware/errorHandler.middleware';
-import tenantRoutes from './modules/tenant-management/routes/tenant.routes';
-import superadminRoutes from './modules/superadmin/routes/superadmin.routes';
-import authRoutes from './modules/auth/routes/auth.routes';
-import bookingRoutes from './modules/bookings/routes/booking.routes';
-import destinationRoutes from './modules/destination/routes/destination.routes';
-import faqRoutes from './modules/faq/routes/faq.routes';
-import packageRoutes from './modules/packages/routes/package.routes';
-import packageEnquiryRoutes from './modules/packageEnquery/routes/packageEnquery.routes';
+import express, { Application } from "express";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import { envConfig } from "./core/config/env.config";
+import { errorHandler } from "./core/middleware/errorHandler.middleware";
+import tenantRoutes from "./modules/tenant-management/routes/tenant.routes";
+import superadminRoutes from "./modules/superadmin/routes/superadmin.routes";
+import authRoutes from "./modules/auth/routes/auth.routes";
+import bookingRoutes from "./modules/bookings/routes/booking.routes";
+import destinationRoutes from "./modules/destination/routes/destination.routes";
+import faqRoutes from "./modules/faq/routes/faq.routes";
+import packageRoutes from "./modules/packages/routes/package.routes";
+import packageEnquiryRoutes from "./modules/packageEnquery/routes/packageEnquery.routes";
+import siteSettingRoutes from "./modules/site-settings/routes/site-setting.routes";
 
 export const createApp = (): Application => {
   const app = express();
@@ -25,14 +26,14 @@ export const createApp = (): Application => {
     }),
   );
   app.use(cookieParser());
-  app.use(morgan(envConfig.nodeEnv === 'production' ? 'combined' : 'dev'));
+  app.use(morgan(envConfig.nodeEnv === "production" ? "combined" : "dev"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
   const api = envConfig.apiPrefix;
 
-  app.get('/health', (_req, res) => {
-    res.json({ success: true, status_code: 200, data: { status: 'ok' } });
+  app.get("/health", (_req, res) => {
+    res.json({ success: true, status_code: 200, data: { status: "ok" } });
   });
 
   app.use(`${api}/admin/tenants`, tenantRoutes);
@@ -43,6 +44,7 @@ export const createApp = (): Application => {
   app.use(`${api}/faqs`, faqRoutes);
   app.use(`${api}/packages`, packageRoutes);
   app.use(`${api}/package-enquiries`, packageEnquiryRoutes);
+  app.use(`${api}/site-settings`, siteSettingRoutes);
 
   app.use(errorHandler);
 
