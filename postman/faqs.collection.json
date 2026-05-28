@@ -1,0 +1,1344 @@
+{
+  "info": {
+    "_postman_id": "4d2592a5-04bf-89a8-c7d1-4b7ba12a2263",
+    "name": "Travel SaaS API - FAQs",
+    "description": "Tenant FAQ management.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "api_prefix",
+      "value": "/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "11111111-1111-4111-8111-111111111111",
+      "type": "string"
+    },
+    {
+      "key": "tenant_slug",
+      "value": "himalayan-tours",
+      "type": "string"
+    },
+    {
+      "key": "tenant_subdomain",
+      "value": "himalayan-tours",
+      "type": "string"
+    },
+    {
+      "key": "tenant_host",
+      "value": "himalayan-tours.localhost",
+      "type": "string"
+    },
+    {
+      "key": "owner_email",
+      "value": "owner@himalayan-tours.com",
+      "type": "string"
+    },
+    {
+      "key": "owner_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "staff_email",
+      "value": "agent@himalayan-tours.com",
+      "type": "string"
+    },
+    {
+      "key": "staff_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_email",
+      "value": "superadmin@example.com",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "22222222-2222-4222-8222-222222222222",
+      "type": "string"
+    },
+    {
+      "key": "staff_user_id",
+      "value": "22222222-2222-4222-8222-222222222223",
+      "type": "string"
+    },
+    {
+      "key": "user_role",
+      "value": "owner",
+      "type": "string"
+    },
+    {
+      "key": "destination_id",
+      "value": "33333333-3333-4333-8333-333333333333",
+      "type": "string"
+    },
+    {
+      "key": "package_id",
+      "value": "44444444-4444-4444-8444-444444444444",
+      "type": "string"
+    },
+    {
+      "key": "departure_id",
+      "value": "55555555-5555-4555-8555-555555555555",
+      "type": "string"
+    },
+    {
+      "key": "customer_id",
+      "value": "66666666-6666-4666-8666-666666666666",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "77777777-7777-4777-8777-777777777777",
+      "type": "string"
+    },
+    {
+      "key": "faq_id",
+      "value": "99999999-9999-4999-8999-999999999999",
+      "type": "string"
+    },
+    {
+      "key": "package_enquiry_id",
+      "value": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "type": "string"
+    },
+    {
+      "key": "site_settings_slug",
+      "value": "site-settings",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "List Public FAQs",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/faqs/public?page=1&limit=20",
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number, coerced to integer, minimum 1.",
+              "disabled": false
+            },
+            {
+              "key": "limit",
+              "value": "20",
+              "description": "Page size, coerced to integer, minimum 1, maximum 100.",
+              "disabled": false
+            }
+          ],
+          "variable": []
+        },
+        "description": "Public-named FAQ list route. Current route middleware still requires tenant authentication.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: Yes. Defaults: page 1, limit 20. Maximum limit 100.\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 List Public FAQs Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/public?page=1&limit=20",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number, coerced to integer, minimum 1.",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Page size, coerced to integer, minimum 1, maximum 100.",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            },
+            "description": "Public-named FAQ list route. Current route middleware still requires tenant authentication.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: Yes. Defaults: page 1, limit 20. Maximum limit 100.\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"99999999-9999-4999-8999-999999999999\",\n        \"question\": \"What is included in the package?\",\n        \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n        \"priority\": 10,\n        \"isPublished\": true,\n        \"createdAt\": \"2026-05-28T10:00:00.000Z\",\n        \"updatedAt\": \"2026-05-28T10:00:00.000Z\"\n      }\n    ],\n    \"total\": 1,\n    \"page\": 1,\n    \"limit\": 20,\n    \"totalPages\": 1\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/public?page=1&limit=20",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number, coerced to integer, minimum 1.",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Page size, coerced to integer, minimum 1, maximum 100.",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            },
+            "description": "Public-named FAQ list route. Current route middleware still requires tenant authentication.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: Yes. Defaults: page 1, limit 20. Maximum limit 100.\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "List FAQs",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/faqs?page=1&limit=20",
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number, coerced to integer, minimum 1.",
+              "disabled": false
+            },
+            {
+              "key": "limit",
+              "value": "20",
+              "description": "Page size, coerced to integer, minimum 1, maximum 100.",
+              "disabled": false
+            }
+          ],
+          "variable": []
+        },
+        "description": "List tenant FAQs using pagination.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: Yes. Defaults: page 1, limit 20. Maximum limit 100.\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 List FAQs Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs?page=1&limit=20",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number, coerced to integer, minimum 1.",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Page size, coerced to integer, minimum 1, maximum 100.",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            },
+            "description": "List tenant FAQs using pagination.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: Yes. Defaults: page 1, limit 20. Maximum limit 100.\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"99999999-9999-4999-8999-999999999999\",\n        \"question\": \"What is included in the package?\",\n        \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n        \"priority\": 10,\n        \"isPublished\": true,\n        \"createdAt\": \"2026-05-28T10:00:00.000Z\",\n        \"updatedAt\": \"2026-05-28T10:00:00.000Z\"\n      }\n    ],\n    \"total\": 1,\n    \"page\": 1,\n    \"limit\": 20,\n    \"totalPages\": 1\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs?page=1&limit=20",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number, coerced to integer, minimum 1.",
+                  "disabled": false
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Page size, coerced to integer, minimum 1, maximum 100.",
+                  "disabled": false
+                }
+              ],
+              "variable": []
+            },
+            "description": "List tenant FAQs using pagination.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: Yes. Defaults: page 1, limit 20. Maximum limit 100.\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get FAQ By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/faqs/:id",
+          "query": [],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{faq_id}}",
+              "description": "FAQ UUID."
+            }
+          ]
+        },
+        "description": "Fetch one tenant FAQ by UUID.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 Get FAQ By ID Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/:id",
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{faq_id}}",
+                  "description": "FAQ UUID."
+                }
+              ]
+            },
+            "description": "Fetch one tenant FAQ by UUID.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"id\": \"99999999-9999-4999-8999-999999999999\",\n    \"question\": \"What is included in the package?\",\n    \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n    \"priority\": 10,\n    \"isPublished\": true,\n    \"createdAt\": \"2026-05-28T10:00:00.000Z\",\n    \"updatedAt\": \"2026-05-28T10:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/:id",
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{faq_id}}",
+                  "description": "FAQ UUID."
+                }
+              ]
+            },
+            "description": "Fetch one tenant FAQ by UUID.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create FAQ",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is expected', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([201, 200]);",
+              "});",
+              "let json = {};",
+              "try {",
+              "  json = pm.response.json();",
+              "} catch (error) {}",
+              "if (json.data) pm.environment.set('faq_id', json.data.id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/faqs",
+          "query": [],
+          "variable": []
+        },
+        "description": "Create a tenant FAQ.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"What is included in the package?\",\n  \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n  \"priority\": 10,\n  \"isPublished\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "201 Create FAQ Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs",
+              "query": [],
+              "variable": []
+            },
+            "description": "Create a tenant FAQ.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"What is included in the package?\",\n  \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n  \"priority\": 10,\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 201,\n  \"data\": {\n    \"id\": \"99999999-9999-4999-8999-999999999999\",\n    \"question\": \"What is included in the package?\",\n    \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n    \"priority\": 10,\n    \"isPublished\": true,\n    \"createdAt\": \"2026-05-28T10:00:00.000Z\",\n    \"updatedAt\": \"2026-05-28T10:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs",
+              "query": [],
+              "variable": []
+            },
+            "description": "Create a tenant FAQ.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"What is included in the package?\",\n  \"answer\": \"Accommodation, guide service, and listed transfers are included.\",\n  \"priority\": 10,\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update FAQ",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/faqs/:id",
+          "query": [],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{faq_id}}",
+              "description": "FAQ UUID."
+            }
+          ]
+        },
+        "description": "Update one or more FAQ fields.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"answer\": \"Accommodation, guide service, permits, and listed transfers are included.\",\n  \"isPublished\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "200 Update FAQ Success",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/:id",
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{faq_id}}",
+                  "description": "FAQ UUID."
+                }
+              ]
+            },
+            "description": "Update one or more FAQ fields.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answer\": \"Accommodation, guide service, permits, and listed transfers are included.\",\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"id\": \"99999999-9999-4999-8999-999999999999\",\n    \"question\": \"What is included in the package?\",\n    \"answer\": \"Accommodation, guide service, permits, and listed transfers are included.\",\n    \"priority\": 10,\n    \"isPublished\": true,\n    \"createdAt\": \"2026-05-28T10:00:00.000Z\",\n    \"updatedAt\": \"2026-05-28T10:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/:id",
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{faq_id}}",
+                  "description": "FAQ UUID."
+                }
+              ]
+            },
+            "description": "Update one or more FAQ fields.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answer\": \"Accommodation, guide service, permits, and listed transfers are included.\",\n  \"isPublished\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete FAQ",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/faqs/:id",
+          "query": [],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{faq_id}}",
+              "description": "FAQ UUID."
+            }
+          ]
+        },
+        "description": "Delete a tenant FAQ.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 Delete FAQ Success",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/:id",
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{faq_id}}",
+                  "description": "FAQ UUID."
+                }
+              ]
+            },
+            "description": "Delete a tenant FAQ.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"deleted\": true\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/faqs/:id",
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{faq_id}}",
+                  "description": "FAQ UUID."
+                }
+              ]
+            },
+            "description": "Delete a tenant FAQ.\n\nAuthentication required: Yes\nTenant context: tenantResolver\nRole permissions: Any authenticated tenant user.\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,451 @@
+{
+  "info": {
+    "_postman_id": "6c494105-a127-5a14-9863-fd155d2ed155",
+    "name": "Travel SaaS API - Superadmin",
+    "description": "Platform superadmin registration and login.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "api_prefix",
+      "value": "/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "11111111-1111-4111-8111-111111111111",
+      "type": "string"
+    },
+    {
+      "key": "tenant_slug",
+      "value": "himalayan-tours",
+      "type": "string"
+    },
+    {
+      "key": "tenant_subdomain",
+      "value": "himalayan-tours",
+      "type": "string"
+    },
+    {
+      "key": "tenant_host",
+      "value": "himalayan-tours.localhost",
+      "type": "string"
+    },
+    {
+      "key": "owner_email",
+      "value": "owner@himalayan-tours.com",
+      "type": "string"
+    },
+    {
+      "key": "owner_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "staff_email",
+      "value": "agent@himalayan-tours.com",
+      "type": "string"
+    },
+    {
+      "key": "staff_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_email",
+      "value": "superadmin@example.com",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "22222222-2222-4222-8222-222222222222",
+      "type": "string"
+    },
+    {
+      "key": "staff_user_id",
+      "value": "22222222-2222-4222-8222-222222222223",
+      "type": "string"
+    },
+    {
+      "key": "user_role",
+      "value": "owner",
+      "type": "string"
+    },
+    {
+      "key": "destination_id",
+      "value": "33333333-3333-4333-8333-333333333333",
+      "type": "string"
+    },
+    {
+      "key": "package_id",
+      "value": "44444444-4444-4444-8444-444444444444",
+      "type": "string"
+    },
+    {
+      "key": "departure_id",
+      "value": "55555555-5555-4555-8555-555555555555",
+      "type": "string"
+    },
+    {
+      "key": "customer_id",
+      "value": "66666666-6666-4666-8666-666666666666",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "77777777-7777-4777-8777-777777777777",
+      "type": "string"
+    },
+    {
+      "key": "faq_id",
+      "value": "99999999-9999-4999-8999-999999999999",
+      "type": "string"
+    },
+    {
+      "key": "package_enquiry_id",
+      "value": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "type": "string"
+    },
+    {
+      "key": "site_settings_slug",
+      "value": "site-settings",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Register Superadmin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/superadmin/register",
+          "query": [],
+          "variable": []
+        },
+        "description": "Create a platform superadmin account in the master database.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"superadmin@example.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Platform Admin\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "201 Register Superadmin Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/superadmin/register",
+              "query": [],
+              "variable": []
+            },
+            "description": "Create a platform superadmin account in the master database.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"superadmin@example.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Platform Admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 201,\n  \"data\": {\n    \"id\": \"22222222-2222-4222-8222-222222222222\",\n    \"email\": \"superadmin@example.com\",\n    \"fullName\": \"Platform Admin\"\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/superadmin/register",
+              "query": [],
+              "variable": []
+            },
+            "description": "Create a platform superadmin account in the master database.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"superadmin@example.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Platform Admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Login Superadmin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is expected', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "const setCookieHeaders = pm.response.headers.all()",
+              "  .filter((header) => header.key.toLowerCase() === 'set-cookie')",
+              "  .map((header) => header.value)",
+              "  .join('\\n');",
+              "",
+              "function captureCookie(cookieName, variableName) {",
+              "  const match = setCookieHeaders.match(new RegExp(cookieName + '=([^;]+)'));",
+              "  if (match) {",
+              "    pm.environment.set(variableName, decodeURIComponent(match[1]));",
+              "  }",
+              "}",
+              "captureCookie('superadmin_token', 'admin_token');"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/superadmin/login",
+          "query": [],
+          "variable": []
+        },
+        "description": "Authenticate a platform superadmin. The access token is set in the `superadmin_token` HttpOnly cookie.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"superadmin@example.com\",\n  \"password\": \"password123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "200 Login Superadmin Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/superadmin/login",
+              "query": [],
+              "variable": []
+            },
+            "description": "Authenticate a platform superadmin. The access token is set in the `superadmin_token` HttpOnly cookie.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"superadmin@example.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"user\": {\n      \"id\": \"22222222-2222-4222-8222-222222222222\",\n      \"email\": \"superadmin@example.com\",\n      \"role\": \"superadmin\"\n    }\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/superadmin/login",
+              "query": [],
+              "variable": []
+            },
+            "description": "Authenticate a platform superadmin. The access token is set in the `superadmin_token` HttpOnly cookie.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"superadmin@example.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    }
+  ]
+}

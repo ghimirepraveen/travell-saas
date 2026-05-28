@@ -1,0 +1,1076 @@
+{
+  "info": {
+    "_postman_id": "0d82bc59-d707-43f6-0e49-8d51b26028d3",
+    "name": "Travel SaaS API - Auth",
+    "description": "Tenant login, refresh/logout, agency profile, and staff creation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "api_prefix",
+      "value": "/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "11111111-1111-4111-8111-111111111111",
+      "type": "string"
+    },
+    {
+      "key": "tenant_slug",
+      "value": "himalayan-tours",
+      "type": "string"
+    },
+    {
+      "key": "tenant_subdomain",
+      "value": "himalayan-tours",
+      "type": "string"
+    },
+    {
+      "key": "tenant_host",
+      "value": "himalayan-tours.localhost",
+      "type": "string"
+    },
+    {
+      "key": "owner_email",
+      "value": "owner@himalayan-tours.com",
+      "type": "string"
+    },
+    {
+      "key": "owner_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "staff_email",
+      "value": "agent@himalayan-tours.com",
+      "type": "string"
+    },
+    {
+      "key": "staff_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_email",
+      "value": "superadmin@example.com",
+      "type": "string"
+    },
+    {
+      "key": "superadmin_password",
+      "value": "password123",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "22222222-2222-4222-8222-222222222222",
+      "type": "string"
+    },
+    {
+      "key": "staff_user_id",
+      "value": "22222222-2222-4222-8222-222222222223",
+      "type": "string"
+    },
+    {
+      "key": "user_role",
+      "value": "owner",
+      "type": "string"
+    },
+    {
+      "key": "destination_id",
+      "value": "33333333-3333-4333-8333-333333333333",
+      "type": "string"
+    },
+    {
+      "key": "package_id",
+      "value": "44444444-4444-4444-8444-444444444444",
+      "type": "string"
+    },
+    {
+      "key": "departure_id",
+      "value": "55555555-5555-4555-8555-555555555555",
+      "type": "string"
+    },
+    {
+      "key": "customer_id",
+      "value": "66666666-6666-4666-8666-666666666666",
+      "type": "string"
+    },
+    {
+      "key": "booking_id",
+      "value": "77777777-7777-4777-8777-777777777777",
+      "type": "string"
+    },
+    {
+      "key": "faq_id",
+      "value": "99999999-9999-4999-8999-999999999999",
+      "type": "string"
+    },
+    {
+      "key": "package_enquiry_id",
+      "value": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+      "type": "string"
+    },
+    {
+      "key": "site_settings_slug",
+      "value": "site-settings",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Get Agency Public Profile",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/agency/:slug",
+          "query": [],
+          "variable": [
+            {
+              "key": "slug",
+              "value": "{{tenant_slug}}",
+              "description": "Tenant slug, lowercase alphanumeric with hyphens."
+            }
+          ]
+        },
+        "description": "Resolve an active agency by slug and return public profile basics.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None"
+      },
+      "response": [
+        {
+          "name": "200 Get Agency Public Profile Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/agency/:slug",
+              "query": [],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "{{tenant_slug}}",
+                  "description": "Tenant slug, lowercase alphanumeric with hyphens."
+                }
+              ]
+            },
+            "description": "Resolve an active agency by slug and return public profile basics.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None"
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"tenantId\": \"11111111-1111-4111-8111-111111111111\",\n    \"slug\": \"himalayan-tours\",\n    \"name\": \"Himalayan Tours\"\n  }\n}"
+        },
+        {
+          "name": "404 TENANT_NOT_FOUND",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/agency/:slug",
+              "query": [],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "{{tenant_slug}}",
+                  "description": "Tenant slug, lowercase alphanumeric with hyphens."
+                }
+              ]
+            },
+            "description": "Resolve an active agency by slug and return public profile basics.\n\nAuthentication required: No\nTenant context: none\nRole permissions: None\nPagination: No\nFile upload: None"
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Agency was not found or is inactive.\",\n  \"error_code\": \"TENANT_NOT_FOUND\",\n  \"status_code\": 404\n}"
+        }
+      ]
+    },
+    {
+      "name": "Tenant Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is expected', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "const setCookieHeaders = pm.response.headers.all()",
+              "  .filter((header) => header.key.toLowerCase() === 'set-cookie')",
+              "  .map((header) => header.value)",
+              "  .join('\\n');",
+              "",
+              "function captureCookie(cookieName, variableName) {",
+              "  const match = setCookieHeaders.match(new RegExp(cookieName + '=([^;]+)'));",
+              "  if (match) {",
+              "    pm.environment.set(variableName, decodeURIComponent(match[1]));",
+              "  }",
+              "}",
+              "captureCookie('access_token', 'token');",
+              "captureCookie('access_token', 'user_token');",
+              "captureCookie('refresh_token', 'refresh_token');",
+              "let json = {};",
+              "try {",
+              "  json = pm.response.json();",
+              "} catch (error) {}",
+              "if (json.data && json.data.user) {",
+              "  pm.environment.set('tenant_id', json.data.user.tenantId || pm.environment.get('tenant_id'));",
+              "  pm.environment.set('user_id', json.data.user.id);",
+              "  pm.environment.set('user_role', json.data.user.role);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/login",
+          "query": [],
+          "variable": []
+        },
+        "description": "Authenticate a tenant user. The route resolves tenant context from host, `x-tenant-subdomain`, `x-tenant-id`, or body fallback before validating credentials.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"owner@himalayan-tours.com\",\n  \"password\": \"password123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "200 Tenant Login Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "query": [],
+              "variable": []
+            },
+            "description": "Authenticate a tenant user. The route resolves tenant context from host, `x-tenant-subdomain`, `x-tenant-id`, or body fallback before validating credentials.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"owner@himalayan-tours.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"user\": {\n      \"id\": \"22222222-2222-4222-8222-222222222222\",\n      \"email\": \"owner@himalayan-tours.com\",\n      \"role\": \"owner\",\n      \"tenantId\": \"11111111-1111-4111-8111-111111111111\"\n    }\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "query": [],
+              "variable": []
+            },
+            "description": "Authenticate a tenant user. The route resolves tenant context from host, `x-tenant-subdomain`, `x-tenant-id`, or body fallback before validating credentials.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"owner@himalayan-tours.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Refresh Tenant Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is expected', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "const setCookieHeaders = pm.response.headers.all()",
+              "  .filter((header) => header.key.toLowerCase() === 'set-cookie')",
+              "  .map((header) => header.value)",
+              "  .join('\\n');",
+              "",
+              "function captureCookie(cookieName, variableName) {",
+              "  const match = setCookieHeaders.match(new RegExp(cookieName + '=([^;]+)'));",
+              "  if (match) {",
+              "    pm.environment.set(variableName, decodeURIComponent(match[1]));",
+              "  }",
+              "}",
+              "captureCookie('access_token', 'token');",
+              "captureCookie('access_token', 'user_token');",
+              "captureCookie('refresh_token', 'refresh_token');",
+              "let json = {};",
+              "try {",
+              "  json = pm.response.json();",
+              "} catch (error) {}",
+              "if (json.data && json.data.user) {",
+              "  pm.environment.set('tenant_id', json.data.user.tenantId || pm.environment.get('tenant_id'));",
+              "  pm.environment.set('user_id', json.data.user.id);",
+              "  pm.environment.set('user_role', json.data.user.role);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/refresh",
+          "query": [],
+          "variable": []
+        },
+        "description": "Rotate a tenant refresh token and issue a new access/refresh cookie pair.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "200 Refresh Tenant Token Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/refresh",
+              "query": [],
+              "variable": []
+            },
+            "description": "Rotate a tenant refresh token and issue a new access/refresh cookie pair.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"user\": {\n      \"id\": \"22222222-2222-4222-8222-222222222222\",\n      \"email\": \"owner@himalayan-tours.com\",\n      \"role\": \"owner\",\n      \"tenantId\": \"11111111-1111-4111-8111-111111111111\"\n    }\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/refresh",
+              "query": [],
+              "variable": []
+            },
+            "description": "Rotate a tenant refresh token and issue a new access/refresh cookie pair.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Refresh token is missing.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Logout Tenant User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/logout",
+          "query": [],
+          "variable": []
+        },
+        "description": "Revoke the supplied tenant refresh token when present and clear tenant auth cookies.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "200 Logout Tenant User Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/logout",
+              "query": [],
+              "variable": []
+            },
+            "description": "Revoke the supplied tenant refresh token when present and clear tenant auth cookies.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 200,\n  \"data\": {\n    \"loggedOut\": true\n  }\n}"
+        },
+        {
+          "name": "400 TENANT_NOT_FOUND",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/logout",
+              "query": [],
+              "variable": []
+            },
+            "description": "Revoke the supplied tenant refresh token when present and clear tenant auth cookies.\n\nAuthentication required: No\nTenant context: resolveTenantFromHost\nRole permissions: None\nPagination: No\nFile upload: None",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Tenant context cannot be resolved from host or headers.\",\n  \"error_code\": \"TENANT_NOT_FOUND\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Staff User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Response is JSON', function () {",
+              "  pm.expect(pm.response.headers.get('Content-Type') || '').to.include('application/json');",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is expected', function () {",
+              "  pm.expect(pm.response.code).to.be.oneOf([201, 200]);",
+              "});",
+              "let json = {};",
+              "try {",
+              "  json = pm.response.json();",
+              "} catch (error) {}",
+              "if (json.data) {",
+              "  pm.environment.set('staff_user_id', json.data.id);",
+              "  pm.environment.set('staff_email', json.data.email);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "description": "Response format.",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": "JSON request body.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-subdomain",
+            "value": "{{tenant_subdomain}}",
+            "description": "Recommended tenant context header for Postman/local development.",
+            "disabled": false
+          },
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenant_id}}",
+            "description": "Alternative tenant context header.",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/v1/auth/users",
+          "query": [],
+          "variable": []
+        },
+        "description": "Create a tenant staff account and send an invite email asynchronously.\n\nAuthentication required: Yes\nTenant context: resolveTenantFromHost\nRole permissions: owner, admin\nPagination: No\nFile upload: None",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"agent@himalayan-tours.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Travel Agent\",\n  \"role\": \"agent\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "201 Create Staff User Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/users",
+              "query": [],
+              "variable": []
+            },
+            "description": "Create a tenant staff account and send an invite email asynchronously.\n\nAuthentication required: Yes\nTenant context: resolveTenantFromHost\nRole permissions: owner, admin\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"agent@himalayan-tours.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Travel Agent\",\n  \"role\": \"agent\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"status_code\": 201,\n  \"data\": {\n    \"id\": \"22222222-2222-4222-8222-222222222223\",\n    \"email\": \"agent@himalayan-tours.com\",\n    \"fullName\": \"Travel Agent\",\n    \"role\": \"agent\",\n    \"loginUrl\": \"http://himalayan-tours.localhost:5173/login\"\n  }\n}"
+        },
+        {
+          "name": "400 VALIDATION_ERROR",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "description": "Response format.",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON request body.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-subdomain",
+                "value": "{{tenant_subdomain}}",
+                "description": "Recommended tenant context header for Postman/local development.",
+                "disabled": false
+              },
+              {
+                "key": "x-tenant-id",
+                "value": "{{tenant_id}}",
+                "description": "Alternative tenant context header.",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/users",
+              "query": [],
+              "variable": []
+            },
+            "description": "Create a tenant staff account and send an invite email asynchronously.\n\nAuthentication required: Yes\nTenant context: resolveTenantFromHost\nRole permissions: owner, admin\nPagination: No\nFile upload: None",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"agent@himalayan-tours.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"Travel Agent\",\n  \"role\": \"agent\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Request body, query, or path parameters fail Zod validation.\",\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"status_code\": 400\n}"
+        }
+      ]
+    }
+  ]
+}
